@@ -51,7 +51,7 @@ def train(x, t, V, W, bv, bw):
 
 
 
-def prediction(x, V, W, bv, bw):
+def predict(x, V, W, bv, bw):
 	A = np.dot(x, V) + bv
 	B = np.dot(np.tanh(A), W) + bw
 
