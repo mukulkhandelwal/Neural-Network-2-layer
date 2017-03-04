@@ -38,7 +38,7 @@ def train(x, t, V, W, bv, bw):
 
 	#backward propagation
 	Ew = Y-t
-	Ev = tanh_primt(A) * np.dat(W,Ew)
+	Ev = tanh_prime(A) * np.dot(W,Ew)
 
 	#predict our loss
 	dW = np.outer(Z, Ew)
@@ -55,7 +55,7 @@ def prediction(x, V, W, bv, bw):
 	A = np.dot(x, V) + bv
 	B = np.dot(np.tanh(A), W) + bw
 
-	return(sigmoid(B) > 0.5).atype(int)
+	return(sigmoid(B) > 0.5).astype(int)
 
 #create layers
 
@@ -68,8 +68,8 @@ bw = np.zeros(n_out)
 params = [V, W, bv, bw]
 
 #generate our data
-X= np.random.binomial(1, .5 , (n_sample, n_in))
-T = X ^ 1 
+X= np.random.binomial(1, 0.5 , (n_sample, n_in))
+T = X^ 1 
 
 #Training time
 for epoch in range(100):
@@ -80,7 +80,7 @@ for epoch in range(100):
 	#for each data point, update our weights
 
 	for i in range(X.shape[0]):
-		loss,grade = train(X[i], T[i], *params)
+		loss, grad = train(X[i], T[i], *params)
 		#update loss
 		for j in range(len(params)):
 			params[j] -= upd[j]
@@ -90,7 +90,7 @@ for epoch in range(100):
 
 		err.append(loss)
 
-	print('Epoch : %d , Loss:%.8f, Time: %.4fs' %(epoch, np.mean(err),time.clocl()-t0))
+	print('Epoch : %d , Loss:%.8f, Time: %.4fs' %(epoch, np.mean(err),time.clock()-t0))
 
 
 
